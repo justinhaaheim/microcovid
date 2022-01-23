@@ -996,7 +996,8 @@ class AllData:
                         state.test_positivity_rate = country.test_positivity_rate
 
             if not rollup_cases(country, "states"):
-                raise ValueError(f"Missing case data for {country!r}")
+                print_and_log_to_sentry(f"Missing case data for {country!r}")
+                del self.countries[country.name]
             rollup_testing(country, "states")
             for state in list(country.states.values()):
                 if state.name in fake_names:
